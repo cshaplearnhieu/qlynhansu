@@ -20,7 +20,8 @@ namespace quanlynhansu
         {
             Functions.Connect();  // kết nối db
             LoadDataGridView();
-            AnText();            // Ẩn chữ không cho nhập
+            txbMaNhanSu.Enabled = false;
+            btnLuu.Enabled = false;
         }
 
         //DataGridView
@@ -55,8 +56,8 @@ namespace quanlynhansu
             {
                 if (MessageBox.Show("Bạn muốn thoát chương trình", "Cảnh báo", MessageBoxButtons.YesNo) != DialogResult.Yes)
                     e.Cancel = true;
-                    Functions.Disconnect();
-                    Application.Exit();
+                Functions.Disconnect();
+                Application.Exit();
             }
         }
 
@@ -64,7 +65,7 @@ namespace quanlynhansu
         {
             if (isExit)
                 Functions.Disconnect();
-            
+
         }
 
         private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)
@@ -122,13 +123,13 @@ namespace quanlynhansu
             dtimeNgaySinh.Text = dtgvNhanSu.CurrentRow.Cells["NgaySinh"].Value.ToString();
             txbLuong.Text = dtgvNhanSu.CurrentRow.Cells["MucLuong"].Value.ToString();
             txbMaPhongBan.Text = dtgvNhanSu.CurrentRow.Cells["MaPhongBan"].Value.ToString();
-            txbMaDuAn.Text = dtgvNhanSu.CurrentRow.Cells["MucLuong"].Value.ToString();
+            txbMaDuAn.Text = dtgvNhanSu.CurrentRow.Cells["MaDuAn"].Value.ToString();
             dtimeNgayTao.Text = dtgvNhanSu.CurrentRow.Cells["NgayTao"].Value.ToString();
             btnSua.Enabled = true;
             btnXoa.Enabled = true;
             btnClear.Enabled = true;
 
-            AnText();
+            txbMaNhanSu.Enabled = false;
 
         }
 
@@ -143,7 +144,7 @@ namespace quanlynhansu
             btnClear.Enabled = true;
             btnHuy.Enabled = true;
 
-            HienText();
+            txbMaNhanSu.Enabled = true;
             ResetValue();
 
         }
@@ -164,6 +165,8 @@ namespace quanlynhansu
             ResetValue();
         }
 
+
+        // hủy
         private void btnHuy_Click(object sender, EventArgs e)
         {
             btnThem.Enabled = true;
@@ -172,15 +175,16 @@ namespace quanlynhansu
             btnLuu.Enabled = false;
             btnClear.Enabled = true;
 
-            AnText();
+            txbMaNhanSu.Enabled = false;
             ResetValue();
+            LoadDataGridView();
         }
 
 
         // Lưu vào database
         private void btnLuu_Click(object sender, EventArgs e)
         {
-            string sql ;
+            string sql;
             if (txbMaNhanSu.Text.Trim().Length == 0)
             {
                 MessageBox.Show("Bạn phải nhập mã nhân sự", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -208,7 +212,7 @@ namespace quanlynhansu
             if (txbMaPhongBan.Text.Trim().Length == 0)
             {
                 MessageBox.Show("Bạn phải nhập mã phòng ban nhân sự", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txbHoTen.Focus();
+                txbMaPhongBan.Focus();
                 return;
             }
             if (txbMaDuAn.Text.Trim().Length == 0)
@@ -234,7 +238,7 @@ namespace quanlynhansu
 
             sql = "INSERT INTO tblnhansu " +
                   "VALUES" +
-                  "(N'" + txbMaNhanSu.Text + "',N'" + txbHoTen.Text + "', N'"+ dtimeNgaySinh.Text + "',N'" + txbLuong.Text + "', N'" + txbMaPhongBan.Text + "', N'" + txbMaDuAn.Text + "',N'" + dtimeNgayTao.Text + "')";
+                  "(N'" + txbMaNhanSu.Text + "',N'" + txbHoTen.Text + "', N'" + dtimeNgaySinh.Text + "',N'" + txbLuong.Text + "', N'" + txbMaPhongBan.Text + "', N'" + txbMaDuAn.Text + "',N'" + dtimeNgayTao.Text + "')";
 
 
 
@@ -286,7 +290,7 @@ namespace quanlynhansu
             }
             sql = "UPDATE tblnhansu SET  TenNhanSu=N'" + txbHoTen.Text.Trim().ToString() +
                     "',NgaySinh= '" + dtimeNgaySinh.Text.Trim().ToString() +
-                    "',MucLuong=N'" + txbLuong.Text.Trim().ToString() + 
+                    "',MucLuong=N'" + txbLuong.Text.Trim().ToString() +
                     "',MaPhongBan='" + txbMaPhongBan.Text.Trim().ToString() +
                     "',MaDuAn='" + txbMaDuAn.Text.Trim().ToString() +
                     "' WHERE MaNhanSu=N'" + txbMaNhanSu.Text + "'";
@@ -296,6 +300,54 @@ namespace quanlynhansu
             btnHuy.Enabled = true;
             txbMaNhanSu.Enabled = false;
         }
-    }
 
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            string sql;
+            if (tblnhansu.Rows.Count == 0)
+            {
+                MessageBox.Show("Không còn dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (txbMaNhanSu.Text == "") //nếu chưa chọn bản ghi nào
+            {
+                MessageBox.Show("Bạn chưa chọn bản ghi nào", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (MessageBox.Show("Bạn có muốn xoá không?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                sql = "DELETE tblnhansu WHERE MaNhanSu=N'" + txbMaNhanSu.Text + "'";
+                Functions.RunSQL(sql);
+                LoadDataGridView();
+                ResetValue();
+
+            }
+        }
+
+        //Tìm Kiếm
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            string sql;
+            if ((txbMaNhanSu.Text == "") && (txbHoTen.Text == "") && (txbMaPhongBan.Text == "") && (txbMaDuAn.Text == ""))
+            {
+                MessageBox.Show("Bạn hãy nhập điều kiện tìm kiếm", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            sql = "SELECT * from tblnhansu WHERE 1=1";
+            if (txbMaNhanSu.Text != "")
+                sql += " AND MaNhanSu LIKE N'%" + txbMaNhanSu.Text + "%'";
+            if (txbHoTen.Text != "")
+                sql += " AND TenNhanSu LIKE N'%" + txbHoTen.Text + "%'";
+            if (txbMaPhongBan.Text != "")
+                sql += " AND MaPhongBan LIKE N'%" + txbMaPhongBan.Text + "%'";
+            if (txbMaDuAn.Text != "")
+                sql += " AND MaDuAn LIKE N'%" + txbMaDuAn.Text + "%'";
+            tblnhansu = Functions.GetDataToTable(sql);
+            if (tblnhansu.Rows.Count == 0)
+                MessageBox.Show("Không có bản ghi thoả mãn điều kiện tìm kiếm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else MessageBox.Show("Có " + tblnhansu.Rows.Count + "  bản ghi thoả mãn điều kiện!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            dtgvNhanSu.DataSource = tblnhansu;
+            ResetValue();
+        }
+    }
 }

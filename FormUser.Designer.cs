@@ -189,6 +189,7 @@
             this.btnLuu.TabIndex = 24;
             this.btnLuu.Text = "Lưu";
             this.btnLuu.UseVisualStyleBackColor = true;
+            this.btnLuu.Click += new System.EventHandler(this.btnLuu_Click);
             // 
             // FormUser
             // 

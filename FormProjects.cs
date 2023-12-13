@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using quanlynhansu;
 using System.Data.SqlClient;
+using quanlynhansu.Class;
 
 namespace quanlynhansu
 {
@@ -22,7 +23,7 @@ namespace quanlynhansu
         private void FormProjects_Load(object sender, EventArgs e)
         {
             LoadDataGridView();
-            AnText();
+            txbMaDuAn.Enabled = false;
             btnLuu.Enabled = false;
         }
 
@@ -70,25 +71,33 @@ namespace quanlynhansu
             btnXoa.Enabled = true;
         }
 
+
+        //Thêm
         private void btnThem_Click(object sender, EventArgs e)
         {
             btnThem.Enabled = false;
             btnSua.Enabled = false;
             btnXoa.Enabled = false;
             btnLuu.Enabled = true;
+            btnTimKiem.Enabled = false;
+            btnHuy.Enabled = true;
 
-            HienText();
+            txbMaDuAn.Enabled = true;
             ResetValue();
         }
 
+        // hủy
         private void btnHuy_Click(object sender, EventArgs e)
         {
-            AnText();
+            txbMaDuAn.Enabled = false;
 
             btnThem.Enabled = true;
             btnSua.Enabled = true;
             btnXoa.Enabled = true;
             btnLuu.Enabled = false;
+            btnTimKiem.Enabled = true;
+            ResetValue() ;
+            LoadDataGridView();
         }
 
 
@@ -184,6 +193,51 @@ namespace quanlynhansu
             ResetValue();
             btnHuy.Enabled = true;
             txbMaDuAn.Enabled = false;
+        }
+
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            string sql;
+            if (tblduan.Rows.Count == 0)
+            {
+                MessageBox.Show("Không còn dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (txbMaDuAn.Text == "") //nếu chưa chọn bản ghi nào
+            {
+                MessageBox.Show("Bạn chưa chọn bản ghi nào", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (MessageBox.Show("Bạn có muốn xoá không?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                sql = "DELETE tblduan WHERE MaDuAn=N'" + txbMaDuAn.Text + "'";
+                Functions.RunSQL(sql);
+                LoadDataGridView();
+                ResetValue();
+            }
+        }
+
+
+        // Tìm Kiếm
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            string sql;
+            if ((txbMaDuAn.Text == "") && (txbTenDuAn.Text == ""))
+            {
+                MessageBox.Show("Bạn hãy nhập điều kiện tìm kiếm", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            sql = "SELECT * from tblduan WHERE 1=1";
+            if (txbMaDuAn.Text != "")
+                sql += " AND MaDuAn LIKE N'%" + txbMaDuAn.Text + "%'";
+            if (txbTenDuAn.Text != "")
+                sql += " AND TenDuAn LIKE N'%" + txbTenDuAn.Text + "%'";
+            tblduan = Functions.GetDataToTable(sql);
+            if (tblduan.Rows.Count == 0)
+                MessageBox.Show("Không có bản ghi thoả mãn điều kiện tìm kiếm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else MessageBox.Show("Có " + tblduan.Rows.Count + "  bản ghi thoả mãn điều kiện!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            dtgvDuAn.DataSource = tblduan;
+            ResetValue();
         }
     }
 }

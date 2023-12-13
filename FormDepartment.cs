@@ -21,7 +21,7 @@ namespace quanlynhansu
         private void FormDepartment_Load(object sender, EventArgs e)
         {
             LoadDataGridView();
-            AnText();
+            txbMaPhongBan.Enabled = false;
             btnLuu.Enabled = false;
             
         }
@@ -70,7 +70,7 @@ namespace quanlynhansu
             btnSua.Enabled = true;
             btnXoa.Enabled = true;
 
-            AnText();
+              txbMaPhongBan.Enabled = false;
 
         }
 
@@ -82,8 +82,9 @@ namespace quanlynhansu
             btnSua.Enabled = false;
             btnXoa.Enabled = false;
             btnLuu.Enabled = true;
+            btnTimKiem.Enabled = false;
 
-            HienText();
+            txbMaPhongBan.Enabled = true;
             ResetValue();
 
         }
@@ -95,8 +96,11 @@ namespace quanlynhansu
             btnSua.Enabled = true;
             btnXoa.Enabled = true;
             btnLuu.Enabled = false;
+            btnTimKiem.Enabled = true;
 
-            AnText();
+            txbMaPhongBan.Enabled = false;
+            ResetValue() ;
+            LoadDataGridView();
         }
 
         // xóa trắng
@@ -115,5 +119,133 @@ namespace quanlynhansu
         {
             this.Close();
         }
+
+
+        // lưu
+        private void btnLuu_Click(object sender, EventArgs e)
+        {
+            string sql;
+            if (txbTenPhongBan.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("Bạn phải nhập tên phòng ban", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txbTenPhongBan.Focus();
+                return;
+            }
+            if (txbMaPhongBan.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("Bạn phải nhập mã phòng ban", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txbMaPhongBan.Focus();
+                return;
+            }
+            if (dtimeNgayTao.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("Bạn phải nhập ngày tạo", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dtimeNgayTao.Focus();
+                return;
+            }
+            sql = "SELECT MaPhongBan FROM tblphongban WHERE MaPhongBan=N'" + txbMaPhongBan.Text.Trim() + "'";
+            if (Functions.CheckKey(sql))
+            {
+                MessageBox.Show("Mã phòng ban này đã có, bạn phải nhập mã khác", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txbMaPhongBan.Focus();
+                txbMaPhongBan.Text = "";
+                return;
+            }
+
+            sql = "INSERT INTO tblphongban " +
+                  "VALUES" +
+                  "(N'" + txbMaPhongBan.Text + "',N'" + txbTenPhongBan.Text + "',N'" + dtimeNgayTao.Text + "')";
+
+
+
+            Functions.RunSQL(sql);
+            LoadDataGridView();
+            ResetValue();
+            btnXoa.Enabled = true;
+            btnThem.Enabled = true;
+            btnSua.Enabled = true;
+            btnHuy.Enabled = false;
+            btnLuu.Enabled = false;
+            txbMaPhongBan.Enabled = false;
+        }
+
+
+        // sửa
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            string sql; //Lưu câu lệnh sql
+            if (tblphongban.Rows.Count == 0)
+            {
+                MessageBox.Show("Không còn dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (txbMaPhongBan.Text == "") //nếu chưa chọn bản ghi nào
+            {
+                MessageBox.Show("Bạn chưa chọn bản ghi nào", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (txbTenPhongBan.Text.Trim().Length == 0) //nếu chưa nhập tên nhân sự
+            {
+                MessageBox.Show("Bạn chưa nhập tên dự án", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            sql = "UPDATE tblphongban SET  TenPhongBan=N'" + txbTenPhongBan.Text.Trim().ToString() +
+                    "',MaPhongBan='" + txbMaPhongBan.Text.Trim().ToString() +
+                    "' WHERE MaPhongBan=N'" + txbMaPhongBan.Text + "'";
+            Functions.RunSQL(sql);
+            LoadDataGridView();
+            ResetValue();
+            btnHuy.Enabled = true;
+            txbMaPhongBan.Enabled = false;
+        }
+
+
+        // Xóa
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            string sql;
+            if (tblphongban.Rows.Count == 0)
+            {
+                MessageBox.Show("Không còn dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (txbMaPhongBan.Text == "") //nếu chưa chọn bản ghi nào
+            {
+                MessageBox.Show("Bạn chưa chọn bản ghi nào", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (MessageBox.Show("Bạn có muốn xoá không?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                sql = "DELETE tblphongban WHERE MaPhongBan=N'" + txbMaPhongBan.Text + "'";
+                Functions.RunSQL(sql);
+                LoadDataGridView();
+                ResetValue();
+            }
+        }
+
+        // Tìm kiếm
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            string sql;
+            if ((txbMaPhongBan.Text == "") && (txbTenPhongBan.Text == ""))
+            {
+                MessageBox.Show("Bạn hãy nhập điều kiện tìm kiếm", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            sql = "SELECT * from tblphongban WHERE 1=1";
+            if (txbMaPhongBan.Text != "")
+                sql += " AND MaPhongBan LIKE N'%" + txbMaPhongBan.Text + "%'";
+            if (txbTenPhongBan.Text != "")
+                sql += " AND TenPhongBan LIKE N'%" + txbTenPhongBan.Text + "%'";
+            tblphongban = Functions.GetDataToTable(sql);
+            if (tblphongban.Rows.Count == 0)
+                MessageBox.Show("Không có bản ghi thoả mãn điều kiện tìm kiếm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else MessageBox.Show("Có " + tblphongban.Rows.Count + "  bản ghi thoả mãn điều kiện!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            dtgvPhongBan.DataSource = tblphongban;
+            ResetValue();
+        }
+
+        
     }
 }

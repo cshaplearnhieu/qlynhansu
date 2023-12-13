@@ -116,5 +116,47 @@ namespace quanlynhansu
             btnXoa.Enabled = true;
             btnLuu.Enabled = false;
         }
+
+        private void btnLuu_Click(object sender, EventArgs e)
+        {
+            string sql;
+            if (txbUserName.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("Bạn phải userName", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txbUserName.Focus();
+                return;
+            }
+            if (txbPassWord.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("Bạn phải nhập passWord", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txbPassWord.Focus();
+                return;
+            }
+            
+            sql = "SELECT TenTaiKhoan FROM tbltaikhoan WHERE TenTaiKhoan=N'" + txbUserName.Text.Trim() + "'";
+            if (Functions.CheckKey(sql))
+            {
+                MessageBox.Show("Tên tài khoản này đã có này đã có, bạn phải nhập mã khác", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txbUserName.Focus();
+                txbUserName.Text = "";
+                return;
+            }
+
+            sql = "INSERT INTO tbltaikhoan " +
+                  "VALUES" +
+                  "(N'" + txbUserName.Text + "',N'" + txbPassWord.Text + "')";
+
+
+
+            Functions.RunSQL(sql);
+            LoadDataGridView();
+            ResetValue();
+            btnXoa.Enabled = true;
+            btnAdd.Enabled = true;
+            btnSua.Enabled = true;
+            btnHuy.Enabled = false;
+            btnLuu.Enabled = false;
+            AnText();
+        }
     }
 }
