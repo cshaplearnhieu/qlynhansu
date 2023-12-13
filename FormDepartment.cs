@@ -18,19 +18,6 @@ namespace quanlynhansu
         {
             InitializeComponent();
         }
-        public void AnText()
-        {
-            txbMaPhongBan.Enabled = false;
-            txbTenPhongBan.Enabled = false;
-            dtimeNgayTao.Enabled = false;
-        }
-        public void HienText()
-        {
-            txbMaPhongBan.Enabled = true;
-            txbTenPhongBan.Enabled = true;
-            dtimeNgayTao.Enabled = true;
-        }
-
         private void FormDepartment_Load(object sender, EventArgs e)
         {
             LoadDataGridView();

@@ -19,19 +19,6 @@ namespace quanlynhansu
         {
             InitializeComponent();
         }
-        public void AnText()
-        {
-            txbMaDuAn.Enabled = false;
-            txbTenDuAn.Enabled = false;
-            dtimeNgayTao.Enabled = false;
-        }
-        public void HienText()
-        {
-            txbMaDuAn.Enabled = true;
-            txbTenDuAn.Enabled = true;
-            dtimeNgayTao.Enabled = true;
-        }
-
         private void FormProjects_Load(object sender, EventArgs e)
         {
             LoadDataGridView();
@@ -120,6 +107,83 @@ namespace quanlynhansu
         private void btnThoat_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        // Lưu
+        private void btnLuu_Click(object sender, EventArgs e)
+        {
+            string sql;
+            if (txbMaDuAn.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("Bạn phải nhập mã dự án", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txbMaDuAn.Focus();
+                return;
+            }
+            if (txbTenDuAn.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("Bạn phải nhập tên dự án", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txbTenDuAn.Focus();
+                return;
+            }
+            if (dtimeNgayTao.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("Bạn phải nhập ngày tạo", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dtimeNgayTao.Focus();
+                return;
+            }
+            sql = "SELECT MaDuAN FROM tblduan WHERE MaDuAn=N'" + txbMaDuAn.Text.Trim() + "'";
+            if (Functions.CheckKey(sql))
+            {
+                MessageBox.Show("Mã dự án này đã có, bạn phải nhập mã khác", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txbMaDuAn.Focus();
+                txbMaDuAn.Text = "";
+                return;
+            }
+
+            sql = "INSERT INTO tblduan " +
+                  "VALUES" +
+                  "(N'" + txbMaDuAn.Text + "',N'" + txbTenDuAn.Text + "',N'" + dtimeNgayTao.Text + "')";
+
+
+
+            Functions.RunSQL(sql);
+            LoadDataGridView();
+            ResetValue();
+            btnXoa.Enabled = true;
+            btnThem.Enabled = true;
+            btnSua.Enabled = true;
+            btnHuy.Enabled = true;
+            btnLuu.Enabled = false;
+            txbMaDuAn.Enabled = false;
+        }
+
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            string sql; //Lưu câu lệnh sql
+            if (tblduan.Rows.Count == 0)
+            {
+                MessageBox.Show("Không còn dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (txbMaDuAn.Text == "") //nếu chưa chọn bản ghi nào
+            {
+                MessageBox.Show("Bạn chưa chọn bản ghi nào", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (txbTenDuAn.Text.Trim().Length == 0) //nếu chưa nhập tên nhân sự
+            {
+                MessageBox.Show("Bạn chưa nhập tên dự án", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            
+            sql = "UPDATE tblduan SET  TenDuAn=N'" + txbTenDuAn.Text.Trim().ToString() +
+                    "',MaDuAn='" + txbMaDuAn.Text.Trim().ToString() +
+                    "' WHERE MaDuAn=N'" + txbMaDuAn.Text + "'";
+            Functions.RunSQL(sql);
+            LoadDataGridView();
+            ResetValue();
+            btnHuy.Enabled = true;
+            txbMaDuAn.Enabled = false;
         }
     }
 }

@@ -16,28 +16,6 @@ namespace quanlynhansu
         {
             InitializeComponent();
         }
-
-        public void AnText()
-        {
-            txbHoTen.Enabled = false;
-            txbLuong.Enabled = false;
-            txbMaDuAn.Enabled = false;
-            txbMaNhanSu.Enabled = false;
-            txbMaPhongBan.Enabled = false;
-            dtimeNgaySinh.Enabled = false;
-            dtimeNgayTao.Enabled = false;
-        }
-        public void HienText()
-        {
-            txbHoTen.Enabled = true;
-            txbLuong.Enabled = true;
-            txbMaDuAn.Enabled = true;
-            txbMaNhanSu.Enabled = true;
-            txbMaPhongBan.Enabled = true;
-            dtimeNgaySinh.Enabled = true;
-            dtimeNgayTao.Enabled = true;
-        }
-
         private void FormMain_Load(object sender, EventArgs e)
         {
             Functions.Connect();  // kết nối db
@@ -245,21 +223,6 @@ namespace quanlynhansu
                 dtimeNgayTao.Focus();
                 return;
             }
-
-            //if (dtimeNgaySinh.Text == "  /  /")
-            //{
-            //    MessageBox.Show("Bạn phải nhập ngày sinh", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    dtimeNgaySinh.Focus();
-            //    return;
-            //}
-            //if (!Functions.IsDate(dtimeNgaySinh.Text))
-            //{
-            //    MessageBox.Show("Bạn phải nhập lại ngày sinh", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    // mskNgaySinh.Text = "";
-            //    dtimeNgaySinh.Focus();
-            //    return;
-            //}
-
             sql = "SELECT MaNhanSu FROM tblnhansu WHERE MaNhanSu=N'" + txbMaNhanSu.Text.Trim() + "'";
             if (Functions.CheckKey(sql))
             {
@@ -283,7 +246,55 @@ namespace quanlynhansu
             btnSua.Enabled = true;
             btnHuy.Enabled = false;
             btnLuu.Enabled = false;
-            AnText();
+            txbMaNhanSu.Enabled = false;
+        }
+
+
+        //sửa
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            string sql; //Lưu câu lệnh sql
+            if (tblnhansu.Rows.Count == 0)
+            {
+                MessageBox.Show("Không còn dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (txbMaNhanSu.Text == "") //nếu chưa chọn bản ghi nào
+            {
+                MessageBox.Show("Bạn chưa chọn bản ghi nào", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (txbHoTen.Text.Trim().Length == 0) //nếu chưa nhập tên nhân sự
+            {
+                MessageBox.Show("Bạn chưa nhập tên nhân sự", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (txbLuong.Text.Trim().Length == 0) //nếu chưa nhập lương 
+            {
+                MessageBox.Show("Bạn chưa nhập lương nhân sự", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (txbMaPhongBan.Text.Trim().Length == 0) //nếu chưa nhập mã phòng ban 
+            {
+                MessageBox.Show("Bạn chưa nhập mã phòng ban", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (txbMaDuAn.Text.Trim().Length == 0) //nếu chưa nhập mã dự án 
+            {
+                MessageBox.Show("Bạn chưa nhập mã dự án", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            sql = "UPDATE tblnhansu SET  TenNhanSu=N'" + txbHoTen.Text.Trim().ToString() +
+                    "',NgaySinh= '" + dtimeNgaySinh.Text.Trim().ToString() +
+                    "',MucLuong=N'" + txbLuong.Text.Trim().ToString() + 
+                    "',MaPhongBan='" + txbMaPhongBan.Text.Trim().ToString() +
+                    "',MaDuAn='" + txbMaDuAn.Text.Trim().ToString() +
+                    "' WHERE MaNhanSu=N'" + txbMaNhanSu.Text + "'";
+            Functions.RunSQL(sql);
+            LoadDataGridView();
+            ResetValue();
+            btnHuy.Enabled = true;
+            txbMaNhanSu.Enabled = false;
         }
     }
 
