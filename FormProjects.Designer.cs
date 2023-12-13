@@ -75,37 +75,46 @@
             // 
             // btnThem
             // 
-            this.btnThem.Location = new System.Drawing.Point(12, 343);
+            this.btnThem.Image = global::quanlynhansu.Properties.Resources.plus;
+            this.btnThem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnThem.Location = new System.Drawing.Point(12, 353);
             this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(75, 37);
+            this.btnThem.Size = new System.Drawing.Size(104, 49);
             this.btnThem.TabIndex = 3;
             this.btnThem.Text = "Thêm";
+            this.btnThem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnThem.UseVisualStyleBackColor = true;
             this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
             // btnXoa
             // 
-            this.btnXoa.Location = new System.Drawing.Point(210, 342);
+            this.btnXoa.Image = global::quanlynhansu.Properties.Resources.remove;
+            this.btnXoa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnXoa.Location = new System.Drawing.Point(239, 353);
             this.btnXoa.Name = "btnXoa";
-            this.btnXoa.Size = new System.Drawing.Size(75, 38);
+            this.btnXoa.Size = new System.Drawing.Size(93, 49);
             this.btnXoa.TabIndex = 4;
             this.btnXoa.Text = "Xóa";
+            this.btnXoa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnXoa.UseVisualStyleBackColor = true;
             this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // btnSua
             // 
-            this.btnSua.Location = new System.Drawing.Point(108, 343);
+            this.btnSua.Image = global::quanlynhansu.Properties.Resources.update;
+            this.btnSua.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSua.Location = new System.Drawing.Point(133, 353);
             this.btnSua.Name = "btnSua";
-            this.btnSua.Size = new System.Drawing.Size(75, 37);
+            this.btnSua.Size = new System.Drawing.Size(93, 48);
             this.btnSua.TabIndex = 5;
             this.btnSua.Text = "Sửa";
+            this.btnSua.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSua.UseVisualStyleBackColor = true;
             this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
             // 
             // btnThoat
             // 
-            this.btnThoat.Location = new System.Drawing.Point(797, 342);
+            this.btnThoat.Location = new System.Drawing.Point(901, 364);
             this.btnThoat.Name = "btnThoat";
             this.btnThoat.Size = new System.Drawing.Size(75, 38);
             this.btnThoat.TabIndex = 6;
@@ -143,13 +152,13 @@
             this.dtgvDuAn.Name = "dtgvDuAn";
             this.dtgvDuAn.RowHeadersWidth = 51;
             this.dtgvDuAn.RowTemplate.Height = 24;
-            this.dtgvDuAn.Size = new System.Drawing.Size(534, 286);
+            this.dtgvDuAn.Size = new System.Drawing.Size(650, 304);
             this.dtgvDuAn.TabIndex = 10;
             this.dtgvDuAn.Click += new System.EventHandler(this.dtgvDuAn_Click);
             // 
             // btnTimKiem
             // 
-            this.btnTimKiem.Location = new System.Drawing.Point(318, 342);
+            this.btnTimKiem.Location = new System.Drawing.Point(355, 364);
             this.btnTimKiem.Name = "btnTimKiem";
             this.btnTimKiem.Size = new System.Drawing.Size(157, 38);
             this.btnTimKiem.TabIndex = 11;
@@ -159,31 +168,40 @@
             // 
             // btnXoaTrang
             // 
-            this.btnXoaTrang.Location = new System.Drawing.Point(481, 343);
+            this.btnXoaTrang.Image = global::quanlynhansu.Properties.Resources.cleaning;
+            this.btnXoaTrang.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnXoaTrang.Location = new System.Drawing.Point(531, 366);
             this.btnXoaTrang.Name = "btnXoaTrang";
-            this.btnXoaTrang.Size = new System.Drawing.Size(148, 37);
+            this.btnXoaTrang.Size = new System.Drawing.Size(135, 37);
             this.btnXoaTrang.TabIndex = 12;
             this.btnXoaTrang.Text = "Xóa trắng";
+            this.btnXoaTrang.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnXoaTrang.UseVisualStyleBackColor = true;
             this.btnXoaTrang.Click += new System.EventHandler(this.btnXoaTrang_Click);
             // 
             // btnLuu
             // 
-            this.btnLuu.Location = new System.Drawing.Point(635, 343);
+            this.btnLuu.Image = global::quanlynhansu.Properties.Resources.diskette;
+            this.btnLuu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLuu.Location = new System.Drawing.Point(683, 366);
             this.btnLuu.Name = "btnLuu";
-            this.btnLuu.Size = new System.Drawing.Size(75, 37);
+            this.btnLuu.Size = new System.Drawing.Size(90, 37);
             this.btnLuu.TabIndex = 13;
             this.btnLuu.Text = "Lưu";
+            this.btnLuu.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnLuu.UseVisualStyleBackColor = true;
             this.btnLuu.Click += new System.EventHandler(this.btnLuu_Click);
             // 
             // btnHuy
             // 
-            this.btnHuy.Location = new System.Drawing.Point(716, 343);
+            this.btnHuy.Image = global::quanlynhansu.Properties.Resources.close;
+            this.btnHuy.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHuy.Location = new System.Drawing.Point(779, 366);
             this.btnHuy.Name = "btnHuy";
-            this.btnHuy.Size = new System.Drawing.Size(75, 37);
+            this.btnHuy.Size = new System.Drawing.Size(82, 37);
             this.btnHuy.TabIndex = 14;
             this.btnHuy.Text = "Hủy";
+            this.btnHuy.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnHuy.UseVisualStyleBackColor = true;
             this.btnHuy.Click += new System.EventHandler(this.btnHuy_Click);
             // 
@@ -191,7 +209,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 392);
+            this.ClientSize = new System.Drawing.Size(1000, 414);
             this.Controls.Add(this.btnHuy);
             this.Controls.Add(this.btnLuu);
             this.Controls.Add(this.btnXoaTrang);

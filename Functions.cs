@@ -41,8 +41,8 @@ namespace quanlynhansu.Class
         }
 
 
-        // phương thức thực thi câu lệnh Select lấy dữ liệu
 
+        // phương thức thực thi câu lệnh Select lấy dữ liệu
         public static DataTable GetDataToTable(string sql)
         {
             DataTable table = new DataTable();                 //Khai báo đối tượng table thuộc lớp DataTable

@@ -78,31 +78,40 @@
             // 
             // btnXoa
             // 
+            this.btnXoa.Image = global::quanlynhansu.Properties.Resources.remove;
+            this.btnXoa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnXoa.Location = new System.Drawing.Point(51, 135);
             this.btnXoa.Name = "btnXoa";
-            this.btnXoa.Size = new System.Drawing.Size(75, 43);
+            this.btnXoa.Size = new System.Drawing.Size(90, 43);
             this.btnXoa.TabIndex = 20;
             this.btnXoa.Text = "Xóa";
+            this.btnXoa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnXoa.UseVisualStyleBackColor = true;
             this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // btnSua
             // 
+            this.btnSua.Image = global::quanlynhansu.Properties.Resources.update;
+            this.btnSua.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSua.Location = new System.Drawing.Point(51, 86);
             this.btnSua.Name = "btnSua";
-            this.btnSua.Size = new System.Drawing.Size(75, 43);
+            this.btnSua.Size = new System.Drawing.Size(90, 43);
             this.btnSua.TabIndex = 19;
             this.btnSua.Text = "Sửa";
+            this.btnSua.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSua.UseVisualStyleBackColor = true;
             this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
             // 
             // btnThem
             // 
+            this.btnThem.Image = global::quanlynhansu.Properties.Resources.plus;
+            this.btnThem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnThem.Location = new System.Drawing.Point(51, 37);
             this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(75, 43);
+            this.btnThem.Size = new System.Drawing.Size(90, 43);
             this.btnThem.TabIndex = 18;
             this.btnThem.Text = "Thêm";
+            this.btnThem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnThem.UseVisualStyleBackColor = true;
             this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
@@ -161,31 +170,40 @@
             // 
             // btnXoaTrang
             // 
-            this.btnXoaTrang.Location = new System.Drawing.Point(644, 184);
+            this.btnXoaTrang.Image = global::quanlynhansu.Properties.Resources.cleaning;
+            this.btnXoaTrang.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnXoaTrang.Location = new System.Drawing.Point(627, 184);
             this.btnXoaTrang.Name = "btnXoaTrang";
-            this.btnXoaTrang.Size = new System.Drawing.Size(130, 40);
+            this.btnXoaTrang.Size = new System.Drawing.Size(147, 40);
             this.btnXoaTrang.TabIndex = 30;
             this.btnXoaTrang.Text = "Xóa trắng hết";
+            this.btnXoaTrang.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnXoaTrang.UseVisualStyleBackColor = true;
             this.btnXoaTrang.Click += new System.EventHandler(this.btnXoaTrang_Click);
             // 
             // btnLuu
             // 
-            this.btnLuu.Location = new System.Drawing.Point(669, 324);
+            this.btnLuu.Image = global::quanlynhansu.Properties.Resources.printer;
+            this.btnLuu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLuu.Location = new System.Drawing.Point(662, 324);
             this.btnLuu.Name = "btnLuu";
-            this.btnLuu.Size = new System.Drawing.Size(75, 45);
+            this.btnLuu.Size = new System.Drawing.Size(82, 45);
             this.btnLuu.TabIndex = 31;
             this.btnLuu.Text = "Lưu";
+            this.btnLuu.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnLuu.UseVisualStyleBackColor = true;
             this.btnLuu.Click += new System.EventHandler(this.btnLuu_Click);
             // 
             // btnHuy
             // 
+            this.btnHuy.Image = global::quanlynhansu.Properties.Resources.close;
+            this.btnHuy.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnHuy.Location = new System.Drawing.Point(627, 409);
             this.btnHuy.Name = "btnHuy";
             this.btnHuy.Size = new System.Drawing.Size(75, 39);
             this.btnHuy.TabIndex = 32;
             this.btnHuy.Text = "Hủy";
+            this.btnHuy.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnHuy.UseVisualStyleBackColor = true;
             this.btnHuy.Click += new System.EventHandler(this.btnHuy_Click);
             // 
