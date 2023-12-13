@@ -85,7 +85,5 @@ namespace quanlynhansu
             if(!cboxHienThi.Checked)
                 txbMatKhau.UseSystemPasswordChar = true;
         }
-
-     
     }
 }

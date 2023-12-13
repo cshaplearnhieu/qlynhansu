@@ -56,8 +56,7 @@ namespace quanlynhansu
             {
                 if (MessageBox.Show("Bạn muốn thoát chương trình", "Cảnh báo", MessageBoxButtons.YesNo) != DialogResult.Yes)
                     e.Cancel = true;
-                Functions.Disconnect();
-                Application.Exit();
+           
             }
         }
 
@@ -65,7 +64,7 @@ namespace quanlynhansu
         {
             if (isExit)
                 Functions.Disconnect();
-
+                Application.Exit();
         }
 
         private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)

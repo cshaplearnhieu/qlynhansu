@@ -146,8 +146,6 @@ namespace quanlynhansu
                   "VALUES" +
                   "(N'" + txbUserName.Text + "',N'" + txbPassWord.Text + "')";
 
-
-
             Functions.RunSQL(sql);
             LoadDataGridView();
             ResetValue();
